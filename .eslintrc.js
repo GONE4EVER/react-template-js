@@ -18,25 +18,22 @@ module.exports = {
     parser: '@babel/eslint-parser',
     ecmaVersion: 12,
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
+    ecmaFeatures: { jsx: true },
   },
 
-  plugins: ['@babel', 'prettier', 'react', 'import', 'react-hooks', 'jsx-a11y'],
+  plugins: ['react', 'import', 'react-hooks', 'jsx-a11y', '@babel', 'prettier'],
 
   extends: [
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
     'airbnb',
-    'airbnb/hooks',
+    'prettier',
     'plugin:prettier/recommended',
   ],
 
   settings: {
     'import/resolver': {
-      // 'babel-module': {},
       node: {
         paths: ['src'],
         extensions: ['.js', '.jsx'],
@@ -104,6 +101,9 @@ module.exports = {
       },
     ],
 
+    'react/jsx-uses-react': 'off', // #1
+    'react/react-in-jsx-scope': 'off', // #1
+
     'react/jsx-indent': ['error', 2],
     // 'react/jsx-indent-props': ['error', 2],
     // 'react/jsx-props-no-spreading': [1, { custom: 'ignore' }],
@@ -114,3 +114,5 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
   },
 };
+
+// #1 https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint
