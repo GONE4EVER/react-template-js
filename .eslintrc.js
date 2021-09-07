@@ -24,10 +24,11 @@ module.exports = {
   plugins: ['react', 'import', 'react-hooks', 'jsx-a11y', '@babel', 'prettier'],
 
   extends: [
-    'plugin:react-hooks/recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     'airbnb',
+    'airbnb/hooks',
     'prettier',
     'plugin:prettier/recommended',
   ],
@@ -56,7 +57,14 @@ module.exports = {
     ],
     'eol-last': ['error', 'always'],
 
-    'import/extensions': ['error', 'always', { js: 'never' }],
+    'import/extensions': [
+      'error',
+      'always',
+      {
+        js: 'never',
+        jsx: 'never',
+      },
+    ],
     'import/newline-after-import': [2, { count: 1 }],
 
     'import/order': [
@@ -81,7 +89,7 @@ module.exports = {
         ],
       },
     ],
-    indent: ['error', 2, { SwitchCase: 1 }],
+    // indent: ['error', 2, { SwitchCase: 1 }],
     'import/prefer-default-export': 0,
 
     'linebreak-style': ['error', 'unix'],
@@ -101,15 +109,15 @@ module.exports = {
       },
     ],
 
+    'require-await': 'error',
+
     'react/jsx-uses-react': 'off', // #1
     'react/react-in-jsx-scope': 'off', // #1
-
     'react/jsx-indent': ['error', 2],
     // 'react/jsx-indent-props': ['error', 2],
-    // 'react/jsx-props-no-spreading': [1, { custom: 'ignore' }],
+    'react/jsx-props-no-spreading': [1, { custom: 'ignore' }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-fragments': [2, 'element'],
-
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },
