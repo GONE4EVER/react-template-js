@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { createContext, useContext, useState } from 'react';
 
-import { fakeAuth } from 'common/api/index';
+import { fakeAuth } from 'api/index';
 
 const authContext = createContext();
 
