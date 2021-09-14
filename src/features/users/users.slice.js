@@ -1,6 +1,5 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
-const COMPARISON_FIELD = 'firstName';
 
 const usersAdapter = createEntityAdapter({});
 
