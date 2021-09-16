@@ -21,7 +21,7 @@ module.exports = {
     ecmaFeatures: { jsx: true },
   },
 
-  plugins: ['react', 'import', 'react-hooks', 'jsx-a11y', '@babel', 'prettier'],
+  plugins: ['@babel', 'react', 'import', 'react-hooks', 'jsx-a11y', 'prettier'],
 
   extends: [
     'plugin:react/recommended',
@@ -72,19 +72,11 @@ module.exports = {
       {
         alphabetize: { order: 'asc' },
         'newlines-between': 'always',
-        groups: ['builtin', 'external', 'internal', 'parent', 'index'],
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
         pathGroups: [
           {
-            pattern: '@/**',
+            pattern: '/**',
             group: 'internal',
-          },
-          {
-            pattern: '../**',
-            group: 'parent',
-          },
-          {
-            pattern: './**',
-            group: 'index',
           },
         ],
       },
