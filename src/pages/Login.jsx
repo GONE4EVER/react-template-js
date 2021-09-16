@@ -1,23 +1,29 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { useAuth } from 'features/auth/auth.context';
+import { useAuth } from 'features/auth/hooks';
+import { setCredentials } from 'features/auth/slice';
 
 const Login = () => {
-  const { signin } = useAuth();
+  const { user } = useAuth();
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const signingCallback = payload => {
-    if (payload.token) {
+  const login = () => dispatch(setCredentials({ user: 'user123', token: '123' }));
+
+  useEffect(() => {
+    if (user) {
       history.push('/');
     }
-  };
+  }, [user, history]);
 
   return (
     <div className="loginPage">
       <header className="loginPage__header">
         <h1>Login page</h1>
 
-        <button type="button" onClick={() => signin(signingCallback)}>
+        <button type="button" onClick={login}>
           log in
         </button>
       </header>

@@ -1,6 +1,9 @@
-export function fetchCount(amount = 1) {
-  return new Promise(resolve => setTimeout(() => resolve({ data: amount }), 500));
-}
+export const apiConfig = {
+  baseUri: process.env.REACT_APP_BASE_URI,
+
+  auth: '',
+  users: 'users',
+};
 
 export const mock =
   (timeout, falsy = false) =>
@@ -18,19 +21,16 @@ const fakeUserResponse = {
   token: '123axel321rose123guns321and123roses321',
 };
 
-export const fakeAuth = {
+const FakeAuthService = {
   isAuthenticated: false,
 
   async signin() {
-    fakeAuth.isAuthenticated = true;
+    FakeAuthService.isAuthenticated = true;
 
     const payload = await mock(200)(fakeUserResponse);
 
     return payload;
   },
-
-  signout(cb) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
-  },
 };
+
+export default FakeAuthService;

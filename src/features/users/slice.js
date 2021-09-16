@@ -1,6 +1,5 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
-
 const usersAdapter = createEntityAdapter({});
 
 export const usersSlice = createSlice({
