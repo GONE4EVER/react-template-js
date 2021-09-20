@@ -1,36 +1,47 @@
 import { rest } from 'msw';
 
+import { CookieManager } from 'utils/temp';
+
+const fakeUser = { email: 'user@123', password: '123' };
+
+const COOKIE_NAME = 'auth';
+
 export const handlers = [
   rest.post('/login', (req, res, ctx) => {
-    // Persist user's authentication in the session
-    sessionStorage.setItem('is-authenticated', 'true');
+    const { email, password } = req.body;
+
+    if (email !== fakeUser.email || password !== fakeUser.password) {
+      return res(ctx.status(403), ctx.json({ message: 'invalid creds' }));
+    }
+
+    CookieManager.setCookie({
+      name: COOKIE_NAME,
+      value: `${email}&&&${new Date()}`,
+      expiresIn: 1,
+    });
 
     return res(
-      // Respond with a 200 status code
-      ctx.status(200),
+      ctx.set(200),
+      ctx.json({
+        token: Math.random() * 10000,
+        user: fakeUser.email,
+      }),
     );
   }),
 
   rest.get('/user', (req, res, ctx) => {
-    // Check if the user is authenticated in this session
-    const isAuthenticated = sessionStorage.getItem('is-authenticated');
+    const isAuthenticated = !!CookieManager.getCookie(COOKIE_NAME);
 
     if (!isAuthenticated) {
-      // If not authenticated, respond with a 403 error
-      return res(
-        ctx.status(403),
-        ctx.json({
-          errorMessage: 'Not authorized',
-        }),
-      );
+      return res(ctx.status(401), ctx.json({ auf: 123 }));
     }
 
-    // If authenticated, return a mocked user details
-    return res(
-      ctx.status(200),
-      ctx.json({
-        username: 'admin',
-      }),
-    );
+    return res(ctx.set(200), ctx.json(fakeUser));
+  }),
+
+  rest.post('/logout', (req, res, ctx) => {
+    CookieManager.deleteCookie(COOKIE_NAME);
+
+    return res(ctx.status(200));
   }),
 ];
