@@ -103,6 +103,14 @@ module.exports = {
 
     'require-await': 'error',
 
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      {
+        labelAttributes: ['label'],
+        depth: 3,
+      },
+    ],
+
     'react/jsx-uses-react': 'off', // #1
     'react/react-in-jsx-scope': 'off', // #1
     'react/jsx-indent': ['error', 2],
