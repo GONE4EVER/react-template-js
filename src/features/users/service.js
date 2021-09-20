@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { apiConfig } from 'api/index';
+import { apiConfig } from 'common/api/index';
 
 const CACHE_KEY = 'User';
 

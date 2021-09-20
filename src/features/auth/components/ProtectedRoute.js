@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 
-import { useAuth } from '../hooks';
+import { useAuthorization } from '../hooks';
 
 const ProtectedRoute = props => {
-  const { user } = useAuth();
   const { meta, children, ...nativeProps } = props;
-
-  const authChecked = !meta.authRequired || !!user;
-  const permissionChecked = meta.permission?.(user) ?? true;
-
-  const accessGranted = authChecked && permissionChecked;
+  const accessGranted = useAuthorization({
+    authRequired: meta?.authRequired,
+    permission: meta?.permission,
+  });
 
   return (
     <Route

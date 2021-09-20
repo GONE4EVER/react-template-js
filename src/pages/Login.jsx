@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { useAuth } from 'features/auth/hooks';
+import { useAuthState } from 'features/auth/hooks';
 import { setCredentials } from 'features/auth/slice';
 
 const Login = () => {
-  const { user } = useAuth();
+  const { user } = useAuthState();
   const history = useHistory();
   const dispatch = useDispatch();
 
