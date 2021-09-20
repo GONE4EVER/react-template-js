@@ -4,8 +4,7 @@
     "target": "esnext",
     "baseUrl": "src",
     "paths": {
-      "/*": ["./*"],
-      "@/*": ["./*"]
+      "/*": ["/*"]
     }
   },
   "exclude": ["node_modules"]
