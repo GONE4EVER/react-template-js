@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
+  reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
@@ -23,10 +24,10 @@ export const api = createApi({
       }),
     }),
 
-    protected: builder.mutation({
-      query: () => 'protected',
+    getUserAuthState: builder.query({
+      query: () => ({ url: 'user' }),
     }),
   }),
 });
 
-export const { useLoginMutation, useProtectedMutation } = api;
+export const { useLoginMutation, useGetUserAuthStateQuery } = api;

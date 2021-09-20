@@ -20,5 +20,3 @@ export const useAuthorization = ({ authRequired, permission }) => {
 
   return accessGranted;
 };
-
-// const useLogout
