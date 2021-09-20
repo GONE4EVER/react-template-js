@@ -5,7 +5,7 @@ import { Spinner } from 'common/components';
 import Header from 'common/components/Header';
 import ProtectedRoute from 'features/auth/components/ProtectedRoute';
 import ErrorPage from 'pages/ErrorPage';
-import Login from 'pages/Login';
+import Login from 'pages/Login/Login';
 import routes from 'router/index';
 
 import './App.css';
