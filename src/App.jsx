@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Spinner } from 'common/components';
+import Header from 'common/components/Header';
 import ProtectedRoute from 'features/auth/components/ProtectedRoute';
 import ErrorPage from 'pages/ErrorPage';
 import Login from 'pages/Login';
@@ -12,6 +13,7 @@ import './App.css';
 const App = () => {
   return (
     <div className="App">
+      <Header />
       <Suspense fallback={<Spinner />}>
         <Switch>
           {routes.map(route => (
@@ -21,9 +23,9 @@ const App = () => {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="*">
+          <ProtectedRoute path="*" meta={{ authRequired: true }}>
             <ErrorPage />
-          </Route>
+          </ProtectedRoute>
         </Switch>
       </Suspense>
     </div>
