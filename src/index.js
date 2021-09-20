@@ -8,6 +8,13 @@ import { store } from './store/store';
 
 import './index.css';
 
+if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line
+    const { worker } = require('_mocks/browser');
+
+  worker.start();
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
