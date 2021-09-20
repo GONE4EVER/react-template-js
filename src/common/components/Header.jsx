@@ -10,7 +10,13 @@ const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const logout = () => dispatch(setCredentials({}));
+  const logout = async () => {
+    try {
+      await dispatch(setCredentials({}));
+    } catch (err) {
+      console.error({ error: err.message });
+    }
+  };
 
   return (
     <header>
