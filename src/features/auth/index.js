@@ -1,4 +1,7 @@
-export { api as AuthService } from './service/auth.service';
+export { AuthService, useGetUserAuthStateQuery, useLoginMutation } from './service/auth.service';
+
+export { useAuthState, useAuthorization } from './hooks';
+
 export {
   default as authReducer,
   selectCurrentToken,

@@ -1,13 +1,19 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectCurrentToken, selectCurrentUser } from '../slice';
+import { useGetUserAuthStateQuery } from './service/auth.service';
+import { selectCurrentToken, selectCurrentUser } from './slice';
 
 export const useAuthState = () => {
   const user = useSelector(selectCurrentUser);
   const token = useSelector(selectCurrentToken);
 
-  return useMemo(() => ({ user, token }), [user, token]);
+  const { data: authData, isLoading } = useGetUserAuthStateQuery();
+
+  return useMemo(
+    () => ({ user: authData || user, token, isLoading }),
+    [user, token, isLoading, authData],
+  );
 };
 
 export const useAuthorization = ({ authRequired, permission }) => {

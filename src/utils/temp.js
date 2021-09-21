@@ -6,7 +6,7 @@ export const CookieManager = {
     return allCookies.find(cookie => cookie.trim().includes(name));
   },
 
-  setCookie({ name, value, expiresIn }) {
+  setCookie({ name, value, expiresIn = 1 }) {
     const date = new Date();
 
     date.setTime(date.getTime() + expiresIn * 60 * 1000);

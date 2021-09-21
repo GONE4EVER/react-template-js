@@ -17,7 +17,6 @@ export const handlers = [
     CookieManager.setCookie({
       name: COOKIE_NAME,
       value: `${email}&&&${new Date()}`,
-      expiresIn: 1,
     });
 
     return res(

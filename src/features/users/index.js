@@ -1,2 +1,2 @@
-export { usersApi, useGetUsersQuery } from './service';
+export { usersApi as UsersService, useGetUsersQuery } from './service';
 export { usersSlice, usersSelectors } from './slice';

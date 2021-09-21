@@ -1,14 +1,7 @@
 import { useGetUsersQuery } from 'features/users';
 
 const Home = () => {
-  const { data, error, isLoading, isFetching } = useGetUsersQuery();
-
-  console.log({
-    data,
-    error,
-    isLoading,
-    isFetching,
-  });
+  const { data, isFetching } = useGetUsersQuery();
 
   if (isFetching) {
     return <span>Loading</span>;

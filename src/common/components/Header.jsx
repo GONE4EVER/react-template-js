@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { useAuthState } from 'features/auth/hooks';
+import { useAuthState } from 'features/auth';
 import { setCredentials } from 'features/auth/slice';
 
 const Header = () => {

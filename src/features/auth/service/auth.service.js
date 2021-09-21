@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const api = createApi({
+export const AuthService = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
@@ -26,8 +26,16 @@ export const api = createApi({
 
     getUserAuthState: builder.query({
       query: () => ({ url: 'user' }),
+      transformResponse: (data, { request, response }) => {
+        console.log(data, {
+          request,
+          response,
+        });
+
+        return data;
+      },
     }),
   }),
 });
 
-export const { useLoginMutation, useGetUserAuthStateQuery } = api;
+export const { useGetUserAuthStateQuery, useLoginMutation } = AuthService;
