@@ -90,8 +90,8 @@ module.exports = {
     'newline-after-var': ['error', 'always'],
     'newline-before-return': ['error'],
 
-    'no-console': production ? 'warn' : 'off',
-    'no-debugger': production ? 'warn' : 'off',
+    'no-console': production ? 'error' : 'warn',
+    'no-debugger': production ? 'error' : 'warn',
 
     'no-param-reassign': [
       'error',

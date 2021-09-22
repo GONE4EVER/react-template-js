@@ -4,7 +4,7 @@ const Home = () => {
   const { data, isFetching } = useGetUsersQuery();
 
   if (isFetching) {
-    return <span>Loading</span>;
+    return <span>Loading data</span>;
   }
 
   const formatted = JSON.stringify(data, null, 2);

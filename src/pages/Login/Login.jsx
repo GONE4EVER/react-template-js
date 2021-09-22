@@ -1,28 +1,15 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { AuthService } from 'features/auth';
 
-import { AuthService, setCredentials } from 'features/auth';
-
-import LoginForm from './LoginForm';
+import LoginForm from './components/LoginForm';
 
 const Login = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
+  const [login, { isError }] = AuthService.useLoginMutation();
 
-  const [login, { isSuccess, isError }] = AuthService.useLoginMutation();
-
-  useEffect(() => {
-    if (isSuccess) {
-      history.push('/');
-    }
-  }, [isSuccess, history]);
+  console.log(123);
 
   const loginHandler = async userCreds => {
     try {
-      const user = await login(userCreds).unwrap();
-
-      dispatch(setCredentials(user));
+      await login(userCreds).unwrap();
     } catch (err) {
       console.error({ err: err.message });
     }

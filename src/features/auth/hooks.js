@@ -1,28 +1,31 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
-import { useGetUserAuthStateQuery } from './service/auth.service';
-import { selectCurrentToken, selectCurrentUser } from './slice';
+import { AuthService } from './service/auth.service';
 
 export const useAuthState = () => {
-  const user = useSelector(selectCurrentUser);
-  const token = useSelector(selectCurrentToken);
-
-  const { data: authData, isLoading } = useGetUserAuthStateQuery();
+  const {
+    data: authData,
+    isUninitialized,
+    isLoading,
+  } = AuthService.endpoints.getUserAuthState.useQueryState();
 
   return useMemo(
-    () => ({ user: authData || user, token, isLoading }),
-    [user, token, isLoading, authData],
+    () => ({
+      isFetching: isUninitialized || isLoading,
+      user: authData?.user ?? null,
+      token: authData?.token ?? null,
+    }),
+    [authData, isUninitialized, isLoading],
   );
 };
 
 export const useAuthorization = ({ authRequired, permission }) => {
-  const { token, user } = useAuthState();
+  const { token, user, isFetching } = useAuthState();
 
   const authChecked = !authRequired || !!token;
   const permissionChecked = permission?.(user) ?? true;
 
   const accessGranted = authChecked && permissionChecked;
 
-  return accessGranted;
+  return useMemo(() => ({ accessGranted, isFetching }), [accessGranted, isFetching]);
 };

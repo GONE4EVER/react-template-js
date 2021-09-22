@@ -1,22 +1,12 @@
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { useAuthState } from 'features/auth';
-import { setCredentials } from 'features/auth/slice';
+import { useAuthState, useLogoutMutation } from 'features/auth';
 
 const Header = () => {
   const { token } = useAuthState();
+  const [logout] = useLogoutMutation();
 
   const history = useHistory();
-  const dispatch = useDispatch();
-
-  const logout = async () => {
-    try {
-      await dispatch(setCredentials({}));
-    } catch (err) {
-      console.error({ error: err.message });
-    }
-  };
 
   return (
     <header>

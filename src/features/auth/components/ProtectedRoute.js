@@ -5,7 +5,8 @@ import { useAuthorization } from '../hooks';
 
 const ProtectedRoute = props => {
   const { meta, children, ...nativeProps } = props;
-  const accessGranted = useAuthorization({
+
+  const { accessGranted } = useAuthorization({
     authRequired: meta?.authRequired,
     permission: meta?.permission,
   });

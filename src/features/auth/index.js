@@ -1,4 +1,9 @@
-export { AuthService, useGetUserAuthStateQuery, useLoginMutation } from './service/auth.service';
+export {
+  AuthService,
+  useGetUserAuthStateQuery,
+  useLoginMutation,
+  useLogoutMutation,
+} from './service/auth.service';
 
 export { useAuthState, useAuthorization } from './hooks';
 

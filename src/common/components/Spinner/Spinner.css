@@ -1,0 +1,12 @@
+.Spinner {
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: white;
+}

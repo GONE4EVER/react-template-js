@@ -1,17 +1,17 @@
 export const CookieManager = {
   getCookie(cookieName) {
-    const name = `${cookieName}=`;
+    const name = `cookiename=${cookieName}`;
     const allCookies = document.cookie.split(';');
 
     return allCookies.find(cookie => cookie.trim().includes(name));
   },
 
-  setCookie({ name, value, expiresIn = 1 }) {
+  setCookie({ name, expiresIn = 1 }) {
     const date = new Date();
 
     date.setTime(date.getTime() + expiresIn * 60 * 1000);
 
-    document.cookie = `${name}=${value}; expires=${date.toGMTString()}`;
+    document.cookie = `cookiename=${name}; expires=${date.toGMTString()}`;
   },
 
   deleteCookie(name) {

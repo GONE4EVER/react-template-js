@@ -1,18 +1,21 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const CACHE_KEY = 'auth';
+
 export const AuthService = createApi({
   reducerPath: 'authApi',
+  tagTypes: [CACHE_KEY],
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
-    prepareHeaders: (headers, { getState }) => {
-      const { token } = getState().auth;
+    // prepareHeaders: (headers, { getState }) => {
+    //   const { token } = getState().auth;
 
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
+    //   if (token) {
+    //     headers.set('authorization', `Bearer ${token}`);
+    //   }
 
-      return headers;
-    },
+    //   return headers;
+    // },
   }),
 
   endpoints: builder => ({
@@ -22,20 +25,19 @@ export const AuthService = createApi({
         method: 'POST',
         body: credentials,
       }),
+      invalidatesTags: () => [{ type: CACHE_KEY }],
+    }),
+
+    logout: builder.mutation({
+      query: () => ({ url: '/logout', method: 'POST' }),
+      invalidatesTags: () => [{ type: CACHE_KEY }],
     }),
 
     getUserAuthState: builder.query({
       query: () => ({ url: 'user' }),
-      transformResponse: (data, { request, response }) => {
-        console.log(data, {
-          request,
-          response,
-        });
-
-        return data;
-      },
+      providesTags: () => [{ type: CACHE_KEY }],
     }),
   }),
 });
 
-export const { useGetUserAuthStateQuery, useLoginMutation } = AuthService;
+export const { useGetUserAuthStateQuery, useLoginMutation, useLogoutMutation } = AuthService;
