@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
-import { AuthService } from './service';
+import { AuthService, useGetUserAuthStateQuery } from './service';
 
 export const useAuthState = () => {
   const {
@@ -31,4 +32,18 @@ export const useAuthorization = ({ authRequired, permission }) => {
     () => ({ token, accessGranted, pendingAuth }),
     [accessGranted, token, pendingAuth],
   );
+};
+
+export const useRequestAuthentication = (/* { routeMeta } */) => {
+  const history = useHistory();
+  const location = useLocation();
+  const { data: authData, isUninitialized, isLoading } = useGetUserAuthStateQuery();
+
+  const pendingAuth = isUninitialized || isLoading;
+
+  useEffect(() => {
+    if (location.pathname === '/login' && (pendingAuth || authData)) {
+      history.push(location.from?.pathname || '/');
+    }
+  }, [pendingAuth, authData, history, location.pathname, location.from?.pathname]);
 };
