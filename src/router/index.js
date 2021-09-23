@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Home = React.lazy(() => import('pages/Home'));
+const Users = React.lazy(() => import('pages/Users/UsersManagement'));
 
 export default [
   {
@@ -14,6 +15,6 @@ export default [
     name: 'User Management',
     path: '/users',
     meta: { authRequired: true, permission: user => !!user.isAdmin },
-    children: null,
+    children: <Users />,
   },
 ];
