@@ -2,8 +2,6 @@ import React from 'react';
 
 const Home = React.lazy(() => import('pages/Home'));
 
-const fakePermissionCheck = user => user.isAdmin;
-
 export default [
   {
     name: 'Home',
@@ -14,7 +12,8 @@ export default [
   },
   {
     name: 'User Management',
-    path: 'users',
-    meta: { authRequired: true, permission: fakePermissionCheck },
+    path: '/users',
+    meta: { authRequired: true, permission: user => !!user.isAdmin },
+    children: null,
   },
 ];

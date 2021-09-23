@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom';
 
-import { useAuthState, useLogoutMutation } from 'features/auth';
+import { useAuthState } from 'features/auth/hooks';
+import { useLogoutMutation } from 'features/auth/service';
 
 const Header = () => {
   const { token } = useAuthState();

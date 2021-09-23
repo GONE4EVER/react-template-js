@@ -29,8 +29,15 @@ export const AuthService = createApi({
     }),
 
     logout: builder.mutation({
-      query: () => ({ url: '/logout', method: 'POST' }),
-      invalidatesTags: () => [{ type: CACHE_KEY }],
+      query: () => ({ url: 'logout', method: 'POST' }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+          dispatch(AuthService.util.updateQueryData('getUserAuthState', undefined, () => null));
+        } catch (err) {
+          console.error(err);
+        }
+      },
     }),
 
     getUserAuthState: builder.query({

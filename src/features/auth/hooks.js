@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { AuthService } from './service/auth.service';
+import { AuthService } from './service';
 
 export const useAuthState = () => {
   const {
@@ -11,7 +11,7 @@ export const useAuthState = () => {
 
   return useMemo(
     () => ({
-      isFetching: isUninitialized || isLoading,
+      pendingAuth: isUninitialized || isLoading,
       user: authData?.user ?? null,
       token: authData?.token ?? null,
     }),
@@ -20,12 +20,15 @@ export const useAuthState = () => {
 };
 
 export const useAuthorization = ({ authRequired, permission }) => {
-  const { token, user, isFetching } = useAuthState();
+  const { token, user, pendingAuth } = useAuthState();
 
   const authChecked = !authRequired || !!token;
-  const permissionChecked = permission?.(user) ?? true;
+  const permissionChecked = permission?.({ user, token, isAdmin: true }) ?? true;
 
   const accessGranted = authChecked && permissionChecked;
 
-  return useMemo(() => ({ accessGranted, isFetching }), [accessGranted, isFetching]);
+  return useMemo(
+    () => ({ token, accessGranted, pendingAuth }),
+    [accessGranted, token, pendingAuth],
+  );
 };

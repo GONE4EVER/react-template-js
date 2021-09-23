@@ -1,21 +1,36 @@
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 
+import { Spinner } from 'common/components';
+
 import { useAuthorization } from '../hooks';
 
 const ProtectedRoute = props => {
   const { meta, children, ...nativeProps } = props;
 
-  const { accessGranted } = useAuthorization({
+  const { token, accessGranted, pendingAuth } = useAuthorization({
     authRequired: meta?.authRequired,
     permission: meta?.permission,
   });
+
+  if (pendingAuth) {
+    return <Spinner />;
+  }
 
   return (
     <Route
       {...nativeProps}
       render={({ location }) =>
-        accessGranted ? children : <Redirect to={{ pathname: '/login', from: location }} />
+        accessGranted ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: token ? '/' : '/login',
+              from: location,
+            }}
+          />
+        )
       }
     />
   );

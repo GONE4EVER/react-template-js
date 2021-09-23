@@ -1,11 +1,11 @@
-import { AuthService } from 'features/auth';
+import { memo } from 'react';
+
+import { useLoginMutation } from 'features/auth/service';
 
 import LoginForm from './components/LoginForm';
 
 const Login = () => {
-  const [login, { isError }] = AuthService.useLoginMutation();
-
-  console.log(123);
+  const [login, { isError }] = useLoginMutation();
 
   const loginHandler = async userCreds => {
     try {
@@ -32,4 +32,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default memo(Login);

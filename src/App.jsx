@@ -1,10 +1,10 @@
-import { Suspense } from 'react';
+import { Fragment, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Spinner } from 'common/components';
 import Header from 'common/components/Header';
-import AuthManager from 'features/auth/components/AuthProvider';
-import ProtectedRoute from 'features/auth/components/ProtectedRoute';
+import { AuthManager, ProtectedRoute } from 'features/auth/components';
+import { useGetUserAuthStateQuery } from 'features/auth/service';
 import ErrorPage from 'pages/ErrorPage';
 import Login from 'pages/Login/Login';
 import routes from 'router/index';
@@ -12,9 +12,15 @@ import routes from 'router/index';
 import './App.css';
 
 const App = () => {
+  const { /* data: authData, */ isUninitialized, isLoading } = useGetUserAuthStateQuery();
+
+  const pendingAuth = isUninitialized || isLoading;
+
   return (
     <div className="App">
-      <AuthManager>
+      <AuthManager />
+
+      <Fragment>
         <Header />
         <Suspense fallback={<Spinner />}>
           <Switch>
@@ -22,15 +28,14 @@ const App = () => {
               <ProtectedRoute key={route.name} {...route} />
             ))}
 
-            <Route path="/login">
-              <Login />
-            </Route>
+            <Route path="/login">{pendingAuth ? <Spinner /> : <Login />}</Route>
+
             <ProtectedRoute path="*" meta={{ authRequired: true }}>
               <ErrorPage />
             </ProtectedRoute>
           </Switch>
         </Suspense>
-      </AuthManager>
+      </Fragment>
     </div>
   );
 };
