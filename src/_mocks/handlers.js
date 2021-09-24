@@ -2,11 +2,11 @@ import { rest } from 'msw';
 
 import { CookieManager } from 'utils/temp';
 
-const fakeUser = { email: 'user@123', password: '123' };
+const fakeUser = { email: 'user@123', password: '123', isAdmin: true };
 const COOKIE_NAME = 'auth';
 const generateAuthResponse = () => ({
   token: Math.random() * 10000,
-  user: fakeUser.email,
+  user: fakeUser,
 });
 
 export const handlers = [
