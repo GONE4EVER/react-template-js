@@ -24,7 +24,7 @@ export const useAuthorization = ({ authRequired, permission }) => {
   const { token, user, pendingAuth } = useAuthState();
 
   const authChecked = !authRequired || !!token;
-  const permissionChecked = permission?.({ user, token, isAdmin: true }) ?? true;
+  const permissionChecked = permission?.(user) ?? true;
 
   const accessGranted = authChecked && permissionChecked;
 
@@ -37,6 +37,7 @@ export const useAuthorization = ({ authRequired, permission }) => {
 export const useRequestAuthentication = (/* { routeMeta } */) => {
   const history = useHistory();
   const location = useLocation();
+
   const { data: authData, isUninitialized, isLoading } = useGetUserAuthStateQuery();
 
   const pendingAuth = isUninitialized || isLoading;

@@ -14,7 +14,7 @@ export default [
   {
     name: 'User Management',
     path: '/users',
-    meta: { authRequired: true, permission: user => !!user.isAdmin },
+    meta: { authRequired: true, permission: user => !!user?.isAdmin },
     children: <Users />,
   },
 ];

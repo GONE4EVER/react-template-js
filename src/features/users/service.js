@@ -7,7 +7,7 @@ const CACHE_KEY = 'User';
 export const usersApi = createApi({
   reducerPath: 'users',
   baseQuery: fetchBaseQuery({ baseUrl: apiConfig.baseUri }),
-  tagTypes: ['User'],
+  tagTypes: [CACHE_KEY],
 
   endpoints: builder => ({
     getUsers: builder.query({
